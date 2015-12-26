@@ -46,14 +46,14 @@ namespace WindowsUpdateManualInstaller
         public InstallResult InstallUpdates(List<UpdateEntry> list)
         {
             dynamic updatesToInstall = Activator.CreateInstance(Type.GetTypeFromProgID("Microsoft.Update.UpdateColl"));
-            List<UpdateEntry> updatesToInstallWrapper = new List<UpdateEntry>();
+            List<int> updatesToInstallIndexes = new List<int>();
             for (int i = 0; i < list.Count; i++)
             {
                 UpdateEntry e = list[i];
                 if (e.InternalUpdateObject.IsDownloaded == true)
                 {
+                    updatesToInstallIndexes.Add(i);
                     updatesToInstall.Add(e.InternalUpdateObject);
-                    updatesToInstallWrapper.Add(e);
                 }
             }
 
@@ -68,11 +68,15 @@ namespace WindowsUpdateManualInstaller
                  RebootRequired = installationResult.RebootRequired
             };
 
-            result.EntryResults = new InstallResultCode[updatesToInstallWrapper.Count];
-            for (int i = 0; i < updatesToInstallWrapper.Count; i++)
+            result.EntryResults = new InstallEntryResult[updatesToInstallIndexes.Count];
+            for (int i = 0; i < updatesToInstallIndexes.Count; i++)
             {
                 var updateResult = installationResult.GetUpdateResult(i);
-                result.EntryResults[i] = (InstallResultCode)updateResult.ResultCode;
+                result.EntryResults[i] = new InstallEntryResult()
+                {
+                    Result = (InstallResultCode)updateResult.ResultCode,
+                    OriginalListIndex = updatesToInstallIndexes[i]
+                };
             }
 
             return result;
@@ -109,11 +113,16 @@ namespace WindowsUpdateManualInstaller
 
         public class InstallResult
         {
-            public InstallResultCode[] EntryResults;
+            public InstallEntryResult[] EntryResults;
             public InstallResultCode Result;
             public bool RebootRequired;
         }
 
+        public class InstallEntryResult
+        {
+            public InstallResultCode Result;
+            public int OriginalListIndex;
+        }
 
         public enum InstallResultCode : int
         {

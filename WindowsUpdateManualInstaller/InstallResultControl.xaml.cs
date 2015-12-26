@@ -23,19 +23,30 @@ namespace WindowsUpdateManualInstaller
     public partial class InstallResultControl : UserControl
     {
 
-        private UpdateManager.InstallResult result;
+        public List<ResultWrapper> ResultEntries { get; set; }
 
-        public InstallResultControl(UpdateManager.InstallResult result)
+        public InstallResultControl(UpdateManager.InstallResult result, List<UpdateManager.UpdateEntry> updates)
         {
+            ResultEntries = new List<ResultWrapper>();
+            for (int i = 0; i < result.EntryResults.Length; i++)
+            {
+                ResultEntries.Add(new ResultWrapper()
+                {
+                    Item = updates[result.EntryResults[i].OriginalListIndex],
+                    result = result.EntryResults[i]
+                });
+            }
+
+            DataContext = this;
+
             InitializeComponent();
-            this.result = result;
 
             resultSummaryLabel.Content = "Result: " + result?.Result ?? "Error, no result available.";
 
-            if (result?.RebootRequired == true)
+            if (!(result?.RebootRequired == true))
             {
-                rebootBtn.Visibility = Visibility.Visible;
-                rebootLbl.Visibility = Visibility.Visible;
+                rebootBtn.Visibility = Visibility.Hidden;
+                rebootLbl.Visibility = Visibility.Hidden;
             }
         }
 
@@ -47,6 +58,30 @@ namespace WindowsUpdateManualInstaller
             pinf.CreateNoWindow = true;
 
             Process.Start(pinf);
+        }
+
+
+
+        public class ResultWrapper
+        {
+            public UpdateManager.InstallEntryResult result;
+            public UpdateManager.UpdateEntry Item;
+
+            public string Description
+            {
+                get
+                {
+                    return Item.Description;
+                }
+            }
+
+            public string Result
+            {
+                get
+                {
+                    return result.Result.ToString();
+                }
+            }
         }
     }
 }

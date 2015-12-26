@@ -84,7 +84,7 @@ namespace WindowsUpdateManualInstaller
             });
 
 
-            InstallResultControl ctrl = new InstallResultControl(result);
+            InstallResultControl ctrl = new InstallResultControl(result, updates);
             mainGrid.Children.Clear();
             mainGrid.Children.Add(ctrl);
         }
