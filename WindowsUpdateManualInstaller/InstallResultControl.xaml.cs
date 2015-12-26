@@ -71,7 +71,7 @@ namespace WindowsUpdateManualInstaller
             {
                 get
                 {
-                    return Item.Description;
+                    return Item.Title;
                 }
             }
 
