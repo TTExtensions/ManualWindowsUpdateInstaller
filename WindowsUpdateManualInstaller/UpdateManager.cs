@@ -9,12 +9,10 @@ namespace WindowsUpdateManualInstaller
     public class UpdateManager
     {
         private dynamic updateSession;
-        private dynamic updateSearcher;
 
         public UpdateManager()
         {
             updateSession = Activator.CreateInstance(Type.GetTypeFromProgID("Microsoft.Update.Session"));
-            updateSearcher = updateSession.CreateupdateSearcher();
 
         }
 
@@ -22,8 +20,9 @@ namespace WindowsUpdateManualInstaller
         {
             List<UpdateEntry> list = new List<UpdateEntry>();
 
-            dynamic searchResult = updateSearcher.Search("IsInstalled=0 and Type='Software'");
-            dynamic updates = searchResult.Updates;
+            var updateSearcher = updateSession.CreateupdateSearcher();
+            var searchResult = updateSearcher.Search("IsInstalled=0 and Type='Software'");
+            var updates = searchResult.Updates;
             for (int i = 0; i < updates.Count; i++)
             {
                 var item = updates.Item(i);
