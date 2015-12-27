@@ -25,29 +25,37 @@ namespace WindowsUpdateManualInstaller
 
         public List<ResultWrapper> ResultEntries { get; set; }
 
-        public InstallResultControl(UpdateManager.InstallResult result, List<UpdateManager.UpdateEntry> updates)
+        public InstallResultControl(Exception ex, UpdateManager.InstallResult result, List<UpdateManager.UpdateEntry> updates)
         {
-            ResultEntries = new List<ResultWrapper>();
-            for (int i = 0; i < result.EntryResults.Length; i++)
+            if (ex == null)
             {
-                ResultEntries.Add(new ResultWrapper()
+                ResultEntries = new List<ResultWrapper>();
+                for (int i = 0; i < result.EntryResults.Length; i++)
                 {
-                    Item = updates[result.EntryResults[i].OriginalListIndex],
-                    result = result.EntryResults[i]
-                });
+                    ResultEntries.Add(new ResultWrapper()
+                    {
+                        Item = updates[result.EntryResults[i].OriginalListIndex],
+                        result = result.EntryResults[i]
+                    });
+                }
             }
 
             DataContext = this;
-
             InitializeComponent();
-
             resultSummaryLabel.Content = "Result: " + result?.Result ?? "Error, no result available.";
+            
 
             if (!(result?.RebootRequired == true))
             {
                 rebootBtn.Visibility = Visibility.Hidden;
                 rebootLbl.Visibility = Visibility.Hidden;
             }
+            if (ex != null)
+            {
+                resultListView.Visibility = Visibility.Hidden;
+                resultSummaryLabel.Content = "Error: " + ex.Message;
+            }
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

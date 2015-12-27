@@ -40,17 +40,23 @@ namespace WindowsUpdateManualInstaller
 
         private async void SearchForUpdates()
         {
-            ProgressBarControl ctrl = new ProgressBarControl("Searching for Updates…");
-            mainGrid.Children.Clear();
-            mainGrid.Children.Add(ctrl);
+            try {
+                ProgressBarControl ctrl = new ProgressBarControl("Searching for Updates…");
+                mainGrid.Children.Clear();
+                mainGrid.Children.Add(ctrl);
 
-            List<UpdateManager.UpdateEntry> entries = null;
-            await RunUpdateManagerActionAsync(async () =>
+                List<UpdateManager.UpdateEntry> entries = null;
+                await RunUpdateManagerActionAsync(async () =>
+                {
+                    entries = await updateManager.GetAvailableUpdatesAsync();
+                });
+
+                ShowUpdates(entries);
+            }
+            catch (Exception ex)
             {
-                 entries = await updateManager.GetAvailableUpdatesAsync();
-            });
-
-            ShowUpdates(entries);
+                ShowException(ex);
+            }
         }
 
         private void ShowUpdates(List<UpdateManager.UpdateEntry> updates)
@@ -63,28 +69,42 @@ namespace WindowsUpdateManualInstaller
 
         private async void InstallUpdates(List<UpdateManager.UpdateEntry> updates)
         {
-            ProgressBarControl list = new ProgressBarControl("Downloading Updates…");
-            mainGrid.Children.Clear();
-            mainGrid.Children.Add(list);
+            try {
+                ProgressBarControl list = new ProgressBarControl("Downloading Updates…");
+                mainGrid.Children.Clear();
+                mainGrid.Children.Add(list);
 
-            await RunUpdateManagerActionAsync(async () =>
+                await RunUpdateManagerActionAsync(async () =>
+                {
+                    await updateManager.DownloadUpdatesAsync(updates);
+                });
+
+
+                list = new ProgressBarControl("Installing Updates…");
+                mainGrid.Children.Clear();
+                mainGrid.Children.Add(list);
+
+                UpdateManager.InstallResult result = null;
+            
+                await RunUpdateManagerActionAsync(async () =>
+                {
+                    result = await updateManager.InstallUpdatesAsync(updates);
+                });
+                
+
+                InstallResultControl ctrl = new InstallResultControl(null, result, updates);
+                mainGrid.Children.Clear();
+                mainGrid.Children.Add(ctrl);
+            }
+            catch (Exception ex)
             {
-                await updateManager.DownloadUpdatesAsync(updates);
-            });
+                ShowException(ex);
+            }
+        }
 
-
-            list = new ProgressBarControl("Installing Updates…");
-            mainGrid.Children.Clear();
-            mainGrid.Children.Add(list);
-
-            UpdateManager.InstallResult result = null;
-            await RunUpdateManagerActionAsync(async () =>
-            {
-                result = await updateManager.InstallUpdatesAsync(updates);
-            });
-
-
-            InstallResultControl ctrl = new InstallResultControl(result, updates);
+        private void ShowException(Exception ex)
+        {
+            InstallResultControl ctrl = new InstallResultControl(ex, null, null);
             mainGrid.Children.Clear();
             mainGrid.Children.Add(ctrl);
         }
@@ -95,11 +115,6 @@ namespace WindowsUpdateManualInstaller
             try
             {
                 await action();
-            }
-            catch (Exception ex)
-            {
-                if (!closeAfterAwait)
-                    MessageBox.Show(ex.Message, ex.GetType().ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {

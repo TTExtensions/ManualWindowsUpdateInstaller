@@ -10,7 +10,7 @@
         <Label x:Name="resultSummaryLabel" Content="ResultSummary" HorizontalAlignment="Center" Margin="90,10,90,0" VerticalAlignment="Top" FontSize="16"/>
         <Button x:Name="rebootBtn" Content="Reboot now" HorizontalAlignment="Left" Margin="10,0,0,10" Width="82" Click="Button_Click" Height="20" VerticalAlignment="Bottom"/>
         <Label x:Name="rebootLbl" Content="A reboot is required." HorizontalAlignment="Left" Margin="10,0,0,30" Height="26" VerticalAlignment="Bottom" FontWeight="Bold"/>
-        <ListView ItemsSource="{Binding ResultEntries}" Margin="0,46,10,66">
+        <ListView x:Name="resultListView" ItemsSource="{Binding ResultEntries}" Margin="0,46,10,66">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" Width="750" />

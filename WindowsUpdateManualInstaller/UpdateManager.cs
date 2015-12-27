@@ -128,10 +128,10 @@ namespace WindowsUpdateManualInstaller
         {
             NotStarted = 0,
             InProgress = 1,
-            Successful = 2,
-            SuccessfulWithErrors = 3,
-            Error = 4,
-            Canceled = 5
+            Succeeded = 2,
+            SucceededWithErrors = 3,
+            Failed = 4,
+            ProcessStoppedBeforeCompleting = 5
         }
     }
 }
