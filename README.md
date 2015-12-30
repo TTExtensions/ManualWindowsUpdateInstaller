@@ -8,7 +8,7 @@ The functionality is borrowed from Windows Server's **WUA_SearchDownloadInstall.
 
 Note: For this tool to work you need to disable automatic updates in Group Policy; otherwise Windows Update will still automatically install all available updates.
 
-To to this, open gpedit.msc and go to *Computer Configuration* -> *Administrative Templates* -> *Windows Components* -> *Windows Update* -> *Configure Windows Updates* and set it to **Disabled**:
+To to this, open gpedit.msc and go to *Computer Configuration* -> *Administrative Templates* -> *Windows Components* -> *Windows Update* -> *Configure Automatic Updates* and set it to **Disabled**:
 ![gpedit-updates](https://cloud.githubusercontent.com/assets/15179430/12044536/5049c752-ae93-11e5-8b2f-df2acb9f711e.png)
 
 ## Running the Manual Update Installer
