@@ -58,19 +58,22 @@ namespace WindowsUpdateManualInstaller
             threadQueue.Add(e);
         }
 
+        // TODO: Refactor these three similar methods into one method
 
         public async Task<List<UpdateManager.UpdateEntry>> GetAvailableUpdatesAsync()
         {
             List<UpdateManager.UpdateEntry> val = null;
             Exception ex = null;
+
             AddThreadAction(() =>
             {
-                try {
-                    val = updateManager.GetAvailableUpdates();
+                try
+                {
+                    Volatile.Write(ref val, updateManager.GetAvailableUpdates());
                 }
                 catch (Exception e)
                 {
-                    ex = e;
+                    Volatile.Write(ref ex, e);
                 }
                 finally
                 {
@@ -79,15 +82,18 @@ namespace WindowsUpdateManualInstaller
             });
 
             await waitSemaphore.WaitAsync();
-            if (ex != null)
-                throw ex;
+
+            Exception myEx = Volatile.Read(ref ex);
+            if (myEx != null)
+                throw myEx;
             else
-                return val;
+                return Volatile.Read(ref val);
         }
 
         public async Task DownloadUpdatesAsync(List<UpdateManager.UpdateEntry> list)
         {
             Exception ex = null;
+            
             AddThreadAction(() =>
             {
                 try
@@ -96,7 +102,7 @@ namespace WindowsUpdateManualInstaller
                 }
                 catch (Exception e)
                 {
-                    ex = e;
+                    Volatile.Write(ref ex, e);
                 }
                 finally
                 {
@@ -105,23 +111,26 @@ namespace WindowsUpdateManualInstaller
             });
 
             await waitSemaphore.WaitAsync();
-            if (ex != null)
-                throw ex;
+
+            Exception myEx = Volatile.Read(ref ex);
+            if (myEx != null)
+                throw myEx;
         }
 
         public async Task<UpdateManager.InstallResult> InstallUpdatesAsync(List<UpdateManager.UpdateEntry> list)
         {
             UpdateManager.InstallResult val = null;
             Exception ex = null;
+
             AddThreadAction(() =>
             {
                 try
                 {
-                    val = updateManager.InstallUpdates(list);
+                    Volatile.Write(ref val, updateManager.InstallUpdates(list));
                 }
                 catch (Exception e)
                 {
-                    ex = e;
+                    Volatile.Write(ref ex, e);
                 }
                 finally
                 {
@@ -130,10 +139,12 @@ namespace WindowsUpdateManualInstaller
             });
 
             await waitSemaphore.WaitAsync();
-            if (ex != null)
-                throw ex;
+
+            Exception myEx = Volatile.Read(ref ex);
+            if (myEx != null)
+                throw myEx;
             else
-                return val;
+                return Volatile.Read(ref val);
         }
 
 
