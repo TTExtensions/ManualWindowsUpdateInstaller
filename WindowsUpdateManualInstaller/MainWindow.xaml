@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WindowsUpdateManualInstaller"
         mc:Ignorable="d"
-        Title="Manual Update Installer" Height="560.445" Width="980" Closing="Window_Closing">
+        Title="Manual Update Installer" Height="560.445" Width="980" Closing="Window_Closing" TextOptions.TextFormattingMode="Display">
     <Grid x:Name="mainGrid">
 
     </Grid>
