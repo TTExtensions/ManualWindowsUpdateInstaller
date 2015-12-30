@@ -7,11 +7,11 @@ using System.Windows;
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("WindowsUpdateManualInstaller")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Manual Windows Update Installer")]
+[assembly: AssemblyDescription("A tool that allows you to install individual updates on Windows 10.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WindowsUpdateManualInstaller")]
+[assembly: AssemblyProduct("Manual Windows Update Installer")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
