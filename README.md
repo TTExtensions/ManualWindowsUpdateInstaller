@@ -10,3 +10,7 @@ Note: For this tool to work you need to disable automatic updates in Group Polic
 
 To to this, open gpedit.msc and go to *Computer Configuration* -> *Administrative Templates* -> *Windows Components* -> *Windows Update* -> *Configure Windows Updates* and set it to **Disabled**:
 ![gpedit-updates](https://cloud.githubusercontent.com/assets/15179430/12044536/5049c752-ae93-11e5-8b2f-df2acb9f711e.png)
+
+## Running the Manual Update Installer
+
+Please see the topic [Running the Update Installer](https://github.com/TTExtensions/ManualWindowsUpdateInstaller/wiki/Running-the-Update-Installer) for guidance how to build and run the Manual Update Installer.

@@ -1,7 +1,8 @@
 @echo off
 
 REM This build script allows you to build the Manual Windows Update Installer.
-REM For information about prerequisites, see the Wiki page at (TODO)
+REM For information about prerequisites, see the Wiki page at
+REM https://github.com/TTExtensions/ManualWindowsUpdateInstaller/wiki/Running-the-Update-Installer
 
 
 SetLocal ENABLEDELAYEDEXPANSION
