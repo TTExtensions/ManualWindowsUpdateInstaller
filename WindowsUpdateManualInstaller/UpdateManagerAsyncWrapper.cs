@@ -35,13 +35,16 @@ namespace WindowsUpdateManualInstaller
         {
             using (queue)
             {
-                while (true)
+                using (waitSemaphore)
                 {
-                    ThreadRunEntry e = queue.Take();
-                    if (e.exit)
-                        return;
+                    while (true)
+                    {
+                        ThreadRunEntry e = queue.Take();
+                        if (e.exit)
+                            return;
 
-                    e.action();
+                        e.action();
+                    }
                 }
             }
         }
