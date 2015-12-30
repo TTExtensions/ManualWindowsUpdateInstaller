@@ -4,7 +4,7 @@ This tool allows you to manually install individual updates (and check which upd
 
 The functionality is borrowed from Windows Server's **WUA_SearchDownloadInstall.vbs** script.
 
-![updateinstaller](https://cloud.githubusercontent.com/assets/15179430/12044574/fd5cad9c-ae93-11e5-829d-9ecb238071cb.png)
+![updateinstaller](https://cloud.githubusercontent.com/assets/15179430/12044603/b0706400-ae94-11e5-9ddf-2c6657f8a1e1.png)
 
 Note: For this tool to work you need to disable automatic updates in Group Policy; otherwise Windows Update will still automatically install all available updates.
 
