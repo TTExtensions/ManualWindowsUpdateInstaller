@@ -24,15 +24,17 @@ namespace WindowsUpdateManualInstaller
     {
 
         private UpdateManagerAsyncWrapper updateManager = new UpdateManagerAsyncWrapper();
+        private bool preventWindowHide = false;
         private bool isAwaiting = false;
         private bool closeAfterAwait = false;
+
+        private Action handleCloseAction = null;
 
 
         public MainWindow()
         {
             InitializeComponent();
-
-
+            
 
             // Search for Updates.
             SearchForUpdates();
@@ -69,28 +71,49 @@ namespace WindowsUpdateManualInstaller
 
         private async void InstallUpdates(List<UpdateManager.UpdateEntry> updates)
         {
-            try {
-                ProgressBarControl list = new ProgressBarControl("Downloading Updates…");
+            preventWindowHide = true;
+            try
+            {
+                bool cancelRequested = false;
+                Action cancelAction = () => cancelRequested = true;
+
+                ProgressBarControl list = new ProgressBarControl("Downloading Updates…", cancelAction);
                 mainGrid.Children.Clear();
                 mainGrid.Children.Add(list);
-
-                await RunUpdateManagerActionAsync(async () =>
+                handleCloseAction = list.HandleClose;
+                try
                 {
-                    await updateManager.DownloadUpdatesAsync(updates);
-                });
+                    await RunUpdateManagerActionAsync(async () =>
+                    {
+                        await updateManager.DownloadUpdatesAsync(updates);
+                    });
+                }
+                finally
+                {
+                    handleCloseAction = null;
+                }
+
+                // If cancelling has been requested we don't install the updates but
+                // instead simply close the window.
+                if (cancelRequested)
+                {
+                    preventWindowHide = false;
+                    Close();
+                    return;
+                }
 
 
                 list = new ProgressBarControl("Installing Updates…");
                 mainGrid.Children.Clear();
                 mainGrid.Children.Add(list);
 
+                // TODO: Disable the window's close button through winAPI while installing
+                // updates since this cannot be canceled.
                 UpdateManager.InstallResult result = null;
-            
                 await RunUpdateManagerActionAsync(async () =>
                 {
                     result = await updateManager.InstallUpdatesAsync(updates);
                 });
-                
 
                 InstallResultControl ctrl = new InstallResultControl(null, result, updates);
                 mainGrid.Children.Clear();
@@ -99,6 +122,10 @@ namespace WindowsUpdateManualInstaller
             catch (Exception ex)
             {
                 ShowException(ex);
+            }
+            finally
+            {
+                preventWindowHide = false;
             }
         }
 
@@ -128,11 +155,18 @@ namespace WindowsUpdateManualInstaller
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (isAwaiting)
+            if (handleCloseAction != null)
+                handleCloseAction();
+
+            if (preventWindowHide)
+            {
+                e.Cancel = true;
+            }
+            else if (isAwaiting)
             {
                 // Wait for the background thread.
-                closeAfterAwait = true;
                 e.Cancel = true;
+                closeAfterAwait = true;
                 Hide();
             }
             else

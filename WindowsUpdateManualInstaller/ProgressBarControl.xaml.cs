@@ -21,12 +21,38 @@ namespace WindowsUpdateManualInstaller
     public partial class ProgressBarControl : UserControl
     {
         private string text;
+        private Action cancelAction;
+        private bool cancelHandled = false;
 
-        public ProgressBarControl(string text)
+        public ProgressBarControl(string text, Action cancelAction = null)
         {
             InitializeComponent();
             this.text = text;
+            this.cancelAction = cancelAction;
+
             label.Content = text;
+            if (cancelAction == null)
+            {
+                cancelBtn.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void cancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            HandleClose();
+        }
+
+        public void HandleClose()
+        {
+            if (cancelAction != null && !cancelHandled)
+            {
+                cancelHandled = true;
+
+                cancelBtn.IsEnabled = false;
+                cancelAction();
+
+                label.Content = text + " – Canceling, please wait…";
+            }
         }
     }
 }

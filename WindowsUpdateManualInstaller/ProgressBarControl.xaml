@@ -9,6 +9,7 @@
     <Grid>
         <Label x:Name="label" Content="Text..." HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" />
         <ProgressBar Height="20" Margin="10,42,10,0" VerticalAlignment="Top" IsIndeterminate="True"/>
+        <Button x:Name="cancelBtn" Content="Cancel" HorizontalAlignment="Center" Margin="0,120,0,0" VerticalAlignment="Top" Width="75" Click="cancelBtn_Click"/>
 
     </Grid>
 </UserControl>
