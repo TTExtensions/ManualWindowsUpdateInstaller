@@ -11,7 +11,7 @@ The core functionality is borrowed from Windows Server's **WUA_SearchDownloadIns
 For this tool to work you will need to turn off Automatic Updates, otherwise Windows Update will still automatically install all available updates. Note however that this currently doesn't seem to be possible with Windows 10 Home.
 
 To to this, run **gpedit.msc** to open the Local Group Policy Editor and go to *Computer Configuration* -> *Administrative Templates* -> *Windows Components* -> *Windows Update* -> *Configure Automatic Updates* and set it to **Disabled**:
-![gpedit-updates](https://cloud.githubusercontent.com/assets/15179430/12064368/d2f91bd8-afc1-11e5-97bf-1e502278871e.png)
+![gpedit-updates](https://cloud.githubusercontent.com/assets/15179430/12064384/1c061d76-afc2-11e5-9ca3-d55db83a1e49.png)
 
 ## Running the Manual Update Installer
 
