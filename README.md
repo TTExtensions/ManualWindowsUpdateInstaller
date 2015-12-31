@@ -2,14 +2,16 @@
 
 This tool allows you to manually install individual updates (and check which updates are available before installing them) on Windows 10 like in previous Windows versions, in contrast to the regular update mechanism that automatically installs all available updates.
 
-The functionality is borrowed from Windows Server's **WUA_SearchDownloadInstall.vbs** script.
+The core functionality is borrowed from Windows Server's **WUA_SearchDownloadInstall.vbs** script.
 
-![updateinstaller](https://cloud.githubusercontent.com/assets/15179430/12044603/b0706400-ae94-11e5-9ddf-2c6657f8a1e1.png)
+![updateinstaller](https://cloud.githubusercontent.com/assets/15179430/12064360/7105a766-afc1-11e5-89e7-dd7ca9ca256f.png)
 
-Note: For this tool to work you need to disable automatic updates in Group Policy; otherwise Windows Update will still automatically install all available updates.
+#### Turn off Automatic Updates
 
-To to this, open gpedit.msc and go to *Computer Configuration* -> *Administrative Templates* -> *Windows Components* -> *Windows Update* -> *Configure Automatic Updates* and set it to **Disabled**:
-![gpedit-updates](https://cloud.githubusercontent.com/assets/15179430/12044536/5049c752-ae93-11e5-8b2f-df2acb9f711e.png)
+For this tool to work you will need to turn off Automatic Updates, otherwise Windows Update will still automatically install all available updates. Note however that this currently doesn't seem to be possible with Windows 10 Home.
+
+To to this, run **gpedit.msc** to open the Local Group Policy Editor and go to *Computer Configuration* -> *Administrative Templates* -> *Windows Components* -> *Windows Update* -> *Configure Automatic Updates* and set it to **Disabled**:
+![gpedit-updates](https://cloud.githubusercontent.com/assets/15179430/12064368/d2f91bd8-afc1-11e5-97bf-1e502278871e.png)
 
 ## Running the Manual Update Installer
 
