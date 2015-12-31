@@ -12,8 +12,7 @@ For this tool to work you will need to turn off Automatic Updates, otherwise Win
 
 **WARNING:** Disabling Automatic Updates means you will not get any automatic notification of new Security Updates!
 
-To to this, run **gpedit.msc** to open the Local Group Policy Editor and go to *Computer Configuration* -> *Administrative Templates* -> *Windows Components* -> *Windows Update* -> *Configure Automatic Updates* and set it to **Disabled**:
-![gpedit-updates](https://cloud.githubusercontent.com/assets/15179430/12064384/1c061d76-afc2-11e5-9ca3-d55db83a1e49.png)
+To to this, run **gpedit.msc** to open the Local Group Policy Editor and go to *Computer Configuration* -> *Administrative Templates* -> *Windows Components* -> *Windows Update* -> *Configure Automatic Updates* and set it to **Disabled**.
 
 ## Running the Manual Update Installer
 
