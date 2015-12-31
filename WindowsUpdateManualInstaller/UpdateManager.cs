@@ -93,9 +93,16 @@ namespace WindowsUpdateManualInstaller
             public long MaxDownloadSize { get; set; }
             public string SupportUrl { get; set; }
             public int DownloadPriority { get; set; }
+            public string[] Categories { get; set; }
 
             public static UpdateEntry Create(dynamic updateItem)
             {
+                string[] cats = new string[updateItem.Categories.Count];
+                for (int i = 0; i < cats.Length; i++)
+                {
+                    var cat = updateItem.Categories.Item(i);
+                    cats[i] = cat.Name;
+                }
                 UpdateEntry e = new UpdateEntry()
                 {
                     InternalUpdateObject = updateItem,
@@ -105,7 +112,8 @@ namespace WindowsUpdateManualInstaller
                     MinDownloadSize = (long)(decimal)updateItem.MinDownloadSize,
                     MaxDownloadSize = (long)(decimal)updateItem.MaxDownloadSize,
                     SupportUrl = updateItem.SupportUrl,
-                    DownloadPriority = updateItem.DownloadPriority
+                    DownloadPriority = updateItem.DownloadPriority,
+                    Categories = cats
                 };
                 return e;
             }

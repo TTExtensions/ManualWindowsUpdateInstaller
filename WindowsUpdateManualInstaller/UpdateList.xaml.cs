@@ -84,7 +84,8 @@ namespace WindowsUpdateManualInstaller
             }
             else
             {
-                selectionDetailsTextblock.Text = selection.Item.Description;
+                selectionDetailsTextblock.Text = "Categories: " + string.Join(", ", selection.Item.Categories) 
+                    + "\r\n\r\n" + selection.Item.Description;
                 linkLabel.Text = selection.Item.SupportUrl;
             }
         }
