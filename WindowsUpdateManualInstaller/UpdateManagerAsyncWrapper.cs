@@ -25,10 +25,7 @@ namespace WindowsUpdateManualInstaller
             updateRunnerThread = new Thread(() => RunThread(threadQueue));
             updateRunnerThread.Start();
 
-            AddThreadAction(() =>
-            {
-                updateManager = new UpdateManager();
-            });
+            AddThreadAction(() => updateManager = new UpdateManager());
         }
 
         private void RunThread(BlockingCollection<ThreadRunEntry> queue)

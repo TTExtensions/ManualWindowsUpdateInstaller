@@ -49,9 +49,7 @@ namespace WindowsUpdateManualInstaller
 
                 List<UpdateManager.UpdateEntry> entries = null;
                 await RunUpdateManagerActionAsync(async () =>
-                {
-                    entries = await updateManager.GetAvailableUpdatesAsync();
-                });
+                    entries = await updateManager.GetAvailableUpdatesAsync());
 
                 ShowUpdates(entries);
             }
@@ -83,10 +81,7 @@ namespace WindowsUpdateManualInstaller
                 handleCloseAction = list.HandleClose;
                 try
                 {
-                    await RunUpdateManagerActionAsync(async () =>
-                    {
-                        await updateManager.DownloadUpdatesAsync(updates);
-                    });
+                    await RunUpdateManagerActionAsync(async () => await updateManager.DownloadUpdatesAsync(updates));
                 }
                 finally
                 {
@@ -111,9 +106,7 @@ namespace WindowsUpdateManualInstaller
                 // updates since this cannot be canceled.
                 UpdateManager.InstallResult result = null;
                 await RunUpdateManagerActionAsync(async () =>
-                {
-                    result = await updateManager.InstallUpdatesAsync(updates);
-                });
+                    result = await updateManager.InstallUpdatesAsync(updates));
 
                 InstallResultControl ctrl = new InstallResultControl(null, result, updates);
                 mainGrid.Children.Clear();

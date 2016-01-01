@@ -75,21 +75,9 @@ namespace WindowsUpdateManualInstaller
             public UpdateManager.InstallEntryResult result;
             public UpdateManager.UpdateEntry Item;
 
-            public string Description
-            {
-                get
-                {
-                    return Item.Title;
-                }
-            }
+            public string Description => Item.Title;
 
-            public string Result
-            {
-                get
-                {
-                    return result.Result.ToString();
-                }
-            }
+            public string Result => result.Result.ToString();
         }
     }
 }

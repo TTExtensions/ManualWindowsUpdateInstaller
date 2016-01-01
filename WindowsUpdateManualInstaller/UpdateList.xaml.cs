@@ -163,13 +163,7 @@ namespace WindowsUpdateManualInstaller
             }
             public UpdateManager.UpdateEntry Item { get; set; }
 
-            public string Description
-            {
-                get
-                {
-                    return $"[{Item.DownloadPriority}] {Item.Title}";
-                }
-            }
+            public string Description => $"[{Item.DownloadPriority}] {Item.Title}";
 
             public string DownloadSize
             {
