@@ -20,7 +20,7 @@ Please see the topic [Running the Update Installer](https://github.com/TTExtensi
 
 ## Alternative: Show or Hide Updates
 
-An alternative to using the Manual Update Installer is to use the [Show or hide updates (wushowhide.diagcab)](https://support.microsoft.com/kb/3073930) tool from Microsoft. This allows you to hide specific updates, then run Windows Update which downloads and installs the non-hidden updates.
+An alternative to using the Manual Update Installer is to use the <a href="https://support.microsoft.com/kb/3073930" target="_blank">Show or hide updates (wushowhide.diagcab)</a> tool from Microsoft. This allows you to hide specific updates, then run Windows Update which downloads and installs the non-hidden updates.
 
 Note: Updates that have been hidden with wushowhide.diagcab will still be shown in the Manual Update Installer.
 
