@@ -17,3 +17,11 @@ To to this, run **gpedit.msc** to open the Local Group Policy Editor and go to *
 ## Running the Manual Update Installer
 
 Please see the topic [Running the Update Installer](https://github.com/TTExtensions/ManualWindowsUpdateInstaller/wiki/Running-the-Update-Installer) for guidance how to build and run the Manual Update Installer.
+
+## Alternative: Show or Hide Updates
+
+An alternative to using the Manual Update Installer is to use the [Show or hide updates (wushowhide.diagcab)](https://support.microsoft.com/kb/3073930) tool from Microsoft. This allows you to hide specific updates, then run Windows Update which downloads and installs the non-hidden updates.
+
+Note: Updates that have been hidden with wushowhide.diagcab will still be shown in the Manual Update Installer.
+
+![showhideupdates](https://cloud.githubusercontent.com/assets/15179430/12079446/bb0c4ae8-b239-11e5-991b-8bea59b09e53.png)
