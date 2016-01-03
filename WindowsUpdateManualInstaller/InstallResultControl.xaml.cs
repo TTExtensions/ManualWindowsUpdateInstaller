@@ -61,7 +61,7 @@ namespace WindowsUpdateManualInstaller
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ProcessStartInfo pinf = new ProcessStartInfo(System.IO.Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.System), "shutdown.exe"), "/r /t 0");
+                Environment.GetFolderPath(Environment.SpecialFolder.System), "shutdown.exe"), "/r /d p:2:16 /t 0");
             pinf.UseShellExecute = false;
             pinf.CreateNoWindow = true;
 
