@@ -4,7 +4,7 @@ This tool allows you to manually install individual updates (and check which upd
 
 The core functionality is borrowed from Windows Server's **WUA_SearchDownloadInstall.vbs** script.
 
-![updateinstaller](https://cloud.githubusercontent.com/assets/15179430/12064360/7105a766-afc1-11e5-89e7-dd7ca9ca256f.png)
+![updateinstaller](https://cloud.githubusercontent.com/assets/15179430/12078740/801d4894-b21e-11e5-8950-e70aef5f6a31.png)
 
 #### Turn off Automatic Updates
 
