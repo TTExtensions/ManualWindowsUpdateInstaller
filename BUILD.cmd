@@ -12,6 +12,7 @@ REM the working directory would be the windows\system32 dir.
 cd /d "%~dp0"
 
 echo.Building the Manual Windows Update Installer...
+echo.
 REM MSBuild is always installed in the 32-Bit program files folder
 if "!ProgramFiles(x86)!"=="" (
 	set "ProgramFiles32Bit=!ProgramFiles!"
@@ -26,7 +27,10 @@ if not exist "!BuildExe!" (
 	exit /b 1
 )
 
-"!BuildExe!" /v:minimal /nologo /p:Configuration=Release "WindowsUpdateManualInstaller\WindowsUpdateManualInstaller.csproj"
+REM Note that we need to specify both "Configuration" and "Platform" parameters, because
+REM otherwise MSBuild will fill missing parameters from environment variables (and some
+REM systems may have set a "Platform" variable).
+"!BuildExe!" /v:minimal /nologo /p:Configuration=Release /p:Platform=AnyCPU "WindowsUpdateManualInstaller\WindowsUpdateManualInstaller.csproj"
 if not errorlevel 1 (
 	echo.
 	echo.Build successful^^!
