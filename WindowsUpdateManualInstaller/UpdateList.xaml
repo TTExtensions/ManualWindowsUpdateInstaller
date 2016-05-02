@@ -26,7 +26,7 @@
 
             </ListView.View>
         </ListView>
-        <Button x:Name="installUpdatesBtn" Content="Install…" Margin="0,0,10,10" HorizontalAlignment="Right" Width="79" Height="20" VerticalAlignment="Bottom" Click="installUpdatesBtn_Click"/>
+        <Button x:Name="installUpdatesBtn" Content="Install…" Margin="0,0,10,10" HorizontalAlignment="Right" Width="79" Height="21" VerticalAlignment="Bottom" Click="installUpdatesBtn_Click"/>
         <TextBlock x:Name="selectionDetailsTextblock" Margin="0,10,10,76" TextWrapping="Wrap" HorizontalAlignment="Right" Width="260"><Run Text="Details…"/></TextBlock>
         <Label x:Name="summaryLabel" Content="Label" Margin="10,0,94,10" Height="26" VerticalAlignment="Bottom"/>
         <TextBlock x:Name="linkLabel" TextWrapping="Wrap" Text="TextBlock" Margin="0,0,10,55" HorizontalAlignment="Right" Width="260" Height="16" VerticalAlignment="Bottom" TextDecorations="Underline" MouseDown="linkLabel_MouseDown" Cursor="Hand"/>
